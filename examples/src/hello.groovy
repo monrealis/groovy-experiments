@@ -1,4 +1,4 @@
-new HelloWorld().sayHello()
+new HelloWorld().setName("WORLD").sayHello()
 
 def loops() {
     (1..10).each { i ->
@@ -14,7 +14,14 @@ def strings() {
 }
 
 class HelloWorld {
+    private String name = "World"
     def sayHello() {
         printf "Hello World!\n"
+        println "Hello $name!"
+    }
+
+    def setName(String name) {
+        this.name = name
+        this
     }
 }
