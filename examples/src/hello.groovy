@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 new HelloWorld().setName("WORLD").sayHello()
 
 def loops() {
