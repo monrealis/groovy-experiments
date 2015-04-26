@@ -1,6 +1,7 @@
 #!/usr/bin/env groovy
 
 new HelloWorld().setName("WORLD").sayHello()
+maps();
 
 def loops() {
     (1..10).each { i ->
@@ -13,6 +14,12 @@ def strings() {
     def a = 10
     println '$a'
     println "$a"
+}
+
+def maps() {
+    def map = [:]
+    map.'x' = 'X'
+    println map.x
 }
 
 class HelloWorld {
