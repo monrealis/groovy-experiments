@@ -2,6 +2,8 @@
 
 new HelloWorld().setName("WORLD").sayHello()
 maps();
+strings();
+pass();
 
 def loops() {
     (1..10).each { i ->
@@ -13,13 +15,21 @@ def strings() {
     println ""
     def a = 10
     println '$a'
-    println "$a"
+    println "${-> a}"
 }
 
 def maps() {
     def map = [:]
     map.'x' = 'X'
     println map.x
+}
+
+def pass() {
+    assert true
+}
+
+def fail() {
+    assert false
 }
 
 class HelloWorld {
