@@ -1,8 +1,7 @@
 #!/usr/bin/env groovy
 
 new HelloWorld().setName("WORLD").sayHello()
-maps()
-collections()
+elvis();
 
 def loops() {
     (1..10).each { i ->
@@ -40,6 +39,11 @@ void collections() {
     println '' + a + ' ' + a.getClass()
     println '' + m + ' ' + m.getClass()
     println "$a2 ${a2.getClass()}"
+}
+
+void elvis() {
+    println 2 ?: 1
+    println null ?: 1
 }
 
 class HelloWorld {
