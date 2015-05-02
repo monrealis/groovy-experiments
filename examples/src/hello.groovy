@@ -16,20 +16,6 @@ def strings() {
     println "${-> a}"
 }
 
-def maps() {
-    def map = [:]
-    map.'x' = 'X'
-    println map.x
-}
-
-def pass() {
-    assert true
-}
-
-def fail() {
-    assert false
-}
-
 void collections() {
     def l = [1, 2, 3]
     int[] a = [4, 5, 6]
