@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 new HelloWorld().setName("WORLD").sayHello()
-operators();
+regexps();
 
 def loops() {
     (1..10).each { i ->
@@ -39,6 +39,14 @@ void operators() {
 
 def addOne(n) {
     n + 1
+}
+
+def regexps() {
+    a = ~/x/
+    b = 'x' =~ a
+    c = 'x' =~ 'x'
+    d = 'x' ==~ '.'
+    println "$a, $b, $c, $d"
 }
 
 class HelloWorld {
