@@ -68,9 +68,3 @@ class HelloWorld {
         this
     }
 }
-
-class MyScript extends Script {
-    def run() {
-        println "Hello"
-    }
-}
