@@ -1,6 +1,8 @@
 #!/usr/bin/env groovy
+import static java.util.Calendar.getInstance as now
 
 new HelloWorld().setName("WORLD").sayHello()
+println now()
 otherOperators()
 
 def loops() {
