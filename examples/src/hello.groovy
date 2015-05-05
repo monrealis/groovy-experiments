@@ -1,9 +1,9 @@
 #!/usr/bin/env groovy
-import static java.util.Calendar.getInstance as now
+import org.codehaus.groovy.runtime.InvokerHelper
 
+
+InvokerHelper.runScript(MyScript)
 new HelloWorld().setName("WORLD").sayHello()
-println now()
-otherOperators()
 
 def loops() {
     (1..10).each { i ->
@@ -66,5 +66,11 @@ class HelloWorld {
     def setName(String name) {
         this.name = name
         this
+    }
+}
+
+class MyScript extends Script {
+    def run() {
+        println "Hello"
     }
 }
