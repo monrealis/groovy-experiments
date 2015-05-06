@@ -3,7 +3,8 @@ import org.codehaus.groovy.runtime.InvokerHelper
 
 
 InvokerHelper.runScript(MyScript)
-new HelloWorld().setName("WORLD").sayHello()
+def sayer = new HelloWorld().setName("WORLD")
+(sayer as Sayer).sayHello()
 
 def loops() {
     (1..10).each { i ->
@@ -54,6 +55,10 @@ def regexps() {
 def otherOperators() {
     a = [3, 4]
     println([1, 2, *a] as String)
+}
+
+interface Sayer {
+    def sayHello()
 }
 
 class HelloWorld {
