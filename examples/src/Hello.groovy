@@ -5,6 +5,7 @@ import org.codehaus.groovy.runtime.InvokerHelper
 InvokerHelper.runScript(MyScript)
 def sayer = new HelloWorld().setName("WORLD")
 (sayer as Sayer).sayHello()
+new DefaultSayer().sayHello()
 
 def loops() {
     (1..10).each { i ->
@@ -59,6 +60,16 @@ def otherOperators() {
 
 interface Sayer {
     def sayHello()
+}
+
+trait SayerTrait {
+    def sayHello() {
+        println "Hello from trait"
+    }
+}
+
+class DefaultSayer implements Sayer, SayerTrait {
+
 }
 
 class HelloWorld {
