@@ -3,9 +3,10 @@ import org.codehaus.groovy.runtime.InvokerHelper
 
 
 InvokerHelper.runScript(MyScript)
-def sayer = new HelloWorld().setName("WORLD")
-(sayer as Sayer).sayHello()
-new DefaultSayer().sayHello()
+def addOneToSumOfTwo = { i, j -> i + j + 1 }
+def addTwo = addOneToSumOfTwo.curry(1)
+println addTwo(5)
+
 
 def loops() {
     (1..10).each { i ->
