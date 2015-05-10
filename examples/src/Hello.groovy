@@ -3,10 +3,13 @@ import org.codehaus.groovy.runtime.InvokerHelper
 
 
 InvokerHelper.runScript(MyScript)
-def addOneToSumOfTwo = { i, j -> i + j + 1 }
-def addTwo = addOneToSumOfTwo.curry(1)
-println addTwo(5)
+strings()
 
+private void closures() {
+    def addOneToSumOfTwo = { i, j -> i + j + 1 }
+    def addTwo = addOneToSumOfTwo.curry(1)
+    println addTwo(5)
+}
 
 def loops() {
     (1..10).each { i ->
@@ -16,9 +19,9 @@ def loops() {
 
 def strings() {
     println ""
-    def a = 10
+    def (a, b) = [10, 20]
     println '$a'
-    println "${-> a}"
+    println "${-> b}"
 }
 
 void collections() {
