@@ -3,7 +3,12 @@ import org.codehaus.groovy.runtime.InvokerHelper
 
 
 InvokerHelper.runScript(MyScript)
-strings()
+executeProcess()
+
+private void executeProcess() {
+    def p = "ls -l".execute()
+    println p.text
+}
 
 private void closures() {
     def addOneToSumOfTwo = { i, j -> i + j + 1 }
