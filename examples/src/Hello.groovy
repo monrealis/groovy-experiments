@@ -1,9 +1,10 @@
 #!/usr/bin/env groovy
+import groovy.transform.builder.Builder
+import groovy.transform.builder.SimpleStrategy
 import org.codehaus.groovy.runtime.InvokerHelper
 
-
 InvokerHelper.runScript(MyScript)
-executeProcess()
+new HelloWorld().setName('x').say()
 
 private void executeProcess() {
     def p = "ls -l".execute()
@@ -81,15 +82,12 @@ class DefaultSayer implements Sayer, SayerTrait {
 
 }
 
+@Builder(builderStrategy = SimpleStrategy)
 class HelloWorld {
-    private String name = "World"
-    def sayHello() {
+    String name = "World"
+
+    def say() {
         printf "Hello World!\n"
         println "Hello $name!"
-    }
-
-    def setName(String name) {
-        this.name = name
-        this
     }
 }
