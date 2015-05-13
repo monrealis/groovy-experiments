@@ -1,10 +1,17 @@
 #!/usr/bin/env groovy
+import com.google.common.collect.HashMultiset
+@Grapes([@Grab("com.google.guava:guava:18.0")])
+
 import groovy.transform.builder.Builder
 import groovy.transform.builder.SimpleStrategy
 import org.codehaus.groovy.runtime.InvokerHelper
 
 InvokerHelper.runScript(MyScript)
-new HelloWorld().setName('x').say()
+createMultiset()
+
+private void createMultiset() {
+    println HashMultiset.create().class
+}
 
 private void executeProcess() {
     def p = "ls -l".execute()
