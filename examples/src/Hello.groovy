@@ -1,5 +1,8 @@
 #!/usr/bin/env groovy
 import com.google.common.collect.HashMultiset
+import groovy.text.Template
+import groovy.text.markup.MarkupTemplateEngine
+import groovy.text.markup.TemplateConfiguration
 @Grapes([@Grab("com.google.guava:guava:18.0")])
 
 import groovy.transform.builder.Builder
@@ -7,7 +10,18 @@ import groovy.transform.builder.SimpleStrategy
 import org.codehaus.groovy.runtime.InvokerHelper
 
 InvokerHelper.runScript(MyScript)
-createMultiset()
+printTemplate()
+
+private void printTemplate() {
+    TemplateConfiguration c = new TemplateConfiguration()
+    MarkupTemplateEngine e = new MarkupTemplateEngine(c)
+    Template t = e.createTemplate("p{a(href:'#', 'test')}")
+    def map = new HashMap<>();
+    def w = t.make(map)
+    def s = new StringWriter()
+    w.writeTo(s)
+    println s
+}
 
 private void createMultiset() {
     println HashMultiset.create().class
