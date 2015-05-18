@@ -10,7 +10,20 @@ import groovy.transform.builder.SimpleStrategy
 import org.codehaus.groovy.runtime.InvokerHelper
 
 InvokerHelper.runScript(MyScript)
-printTemplate()
+eval()
+callClassLoader()
+
+private void eval() {
+    println new GroovyShell().evaluate('3 * 5')
+    println Eval.me('4 * 6')
+}
+
+private void callClassLoader() {
+    def gcl = new GroovyClassLoader()
+    def clazz = gcl.parseClass('class Test { void run() { println "Here" } }')
+    def o = clazz.newInstance()
+    o.run()
+}
 
 private void printTemplate() {
     TemplateConfiguration c = new TemplateConfiguration()
@@ -65,7 +78,7 @@ void collections() {
 void operators() {
     println 2 ?: 1
     println null ?: 1
-    println null?.x
+    println null?.eval
     Closure c = this.&addOne
     (1..5).each { i ->
         println c(i)
@@ -77,10 +90,10 @@ def addOne(n) {
 }
 
 def regexps() {
-    a = ~/x/
-    b = 'x' =~ a
-    c = 'x' =~ 'x'
-    d = 'x' ==~ '.'
+    a = ~/eval/
+    b = 'eval' =~ a
+    c = 'eval' =~ 'eval'
+    d = 'eval' ==~ '.'
     println "$a, $b, $c, $d"
 }
 
