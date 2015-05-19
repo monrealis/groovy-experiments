@@ -10,8 +10,11 @@ import groovy.transform.builder.SimpleStrategy
 import org.codehaus.groovy.runtime.InvokerHelper
 
 InvokerHelper.runScript(MyScript)
-eval()
-callClassLoader()
+println getString()
+
+private String getString() {
+    'a'.concat 'b' concat 'c' toString() concat 'd'
+}
 
 private void eval() {
     println new GroovyShell().evaluate('3 * 5')
