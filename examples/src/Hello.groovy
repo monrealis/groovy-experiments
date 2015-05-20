@@ -9,8 +9,15 @@ import groovy.transform.builder.Builder
 import groovy.transform.builder.SimpleStrategy
 import org.codehaus.groovy.runtime.InvokerHelper
 
+import java.lang.management.ManagementFactory
+
 InvokerHelper.runScript(MyScript)
-println getString()
+jmx()
+
+private void jmx() {
+    println ManagementFactory.memoryMXBean.heapMemoryUsage
+    println ManagementFactory.memoryMXBean.heapMemoryUsage.max / 1024**3
+}
 
 private String getString() {
     'a'.concat 'b' concat 'c' toString() concat 'd'
