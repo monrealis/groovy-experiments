@@ -12,8 +12,20 @@ import org.codehaus.groovy.runtime.InvokerHelper
 import java.lang.management.ManagementFactory
 
 InvokerHelper.runScript(MyScript)
-jmx()
+checkOverload("x")
+checkOverload(1)
 
+private void checkOverload(Object o) {
+    overload(o)
+}
+
+private void overload(String s) {
+    println "String " + s
+}
+
+private void overload(Integer i) {
+    println "Integer " + i
+}
 private void jmx() {
     println ManagementFactory.memoryMXBean.heapMemoryUsage
     println ManagementFactory.memoryMXBean.heapMemoryUsage.max / 1024**3
