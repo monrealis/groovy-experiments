@@ -12,4 +12,21 @@ class XmlVisualizerSpecification extends Specification {
         then:
         notThrown(NullPointerException)
     }
+
+    def "Should parse valid XML"() {
+        given:
+        new Visualizer("<root />")
+        when:
+        null
+        then:
+        true
+    }
+}
+
+class Visualizer {
+    private Node node
+
+    Visualizer(String text) {
+        node = new XmlParser().parseText(text)
+    }
 }
