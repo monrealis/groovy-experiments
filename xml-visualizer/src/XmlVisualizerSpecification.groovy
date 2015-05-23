@@ -2,6 +2,8 @@
 import spock.lang.Specification
 
 class XmlVisualizerSpecification extends Specification {
+    private String xml = "<root />"
+
     def "HashMap accepts null key"() {
         setup:
         def map = new HashMap()
@@ -15,11 +17,20 @@ class XmlVisualizerSpecification extends Specification {
 
     def "Should parse valid XML"() {
         given:
-        new Visualizer("<root />")
+        new Visualizer(xml)
         when:
         null
         then:
         true
+    }
+
+    def "Should visualize root element"() {
+        given:
+        def v = new Visualizer(xml)
+        when:
+        null
+        then:
+        v.visualize() == 'root'
     }
 }
 
@@ -28,5 +39,9 @@ class Visualizer {
 
     Visualizer(String text) {
         node = new XmlParser().parseText(text)
+    }
+
+    def visualize() {
+        return node.name()
     }
 }
