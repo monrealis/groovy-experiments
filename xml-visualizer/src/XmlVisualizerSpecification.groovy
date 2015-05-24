@@ -32,6 +32,16 @@ class XmlVisualizerSpecification extends Specification {
         then:
         v.visualize() == 'root'
     }
+
+    def "Should visualize root element with namespace"() {
+        given:
+        xml = "<root xmlns='urn:test:test' />"
+        def v = new Visualizer(xml)
+        when:
+        null
+        then:
+        v.visualize() == 'root'
+    }
 }
 
 class Visualizer {
@@ -42,6 +52,11 @@ class Visualizer {
     }
 
     def visualize() {
-        return node.name()
+        return localName(node)
+    }
+
+    private Object localName(Node n) {
+        String s = n.name()
+        s.replaceFirst('\\{.*\\}', "")
     }
 }
