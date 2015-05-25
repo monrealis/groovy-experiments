@@ -2,45 +2,39 @@
 import spock.lang.Specification
 
 class XmlVisualizerSpecification extends Specification {
-    private String xml = "<root />"
-
-    def "HashMap accepts null key"() {
-        setup:
-        def map = new HashMap()
-
-        when:
-        map.put(null, "elem")
-
-        then:
-        notThrown(NullPointerException)
-    }
-
-    def "Should parse valid XML"() {
-        given:
-        new Visualizer(xml)
-        when:
-        null
-        then:
-        true
-    }
+    private String xml
+    private String text
 
     def "Should visualize root element"() {
         given:
-        def v = new Visualizer(xml)
+        xml = "<root />"
         when:
-        null
+        visualize()
         then:
-        v.visualize() == 'root'
+        text == 'root'
     }
 
     def "Should visualize root element with namespace"() {
         given:
         xml = "<root xmlns='urn:test:test' />"
-        def v = new Visualizer(xml)
         when:
-        null
+        visualize()
         then:
-        v.visualize() == 'root'
+        text == 'root'
+    }
+
+    def "Should visualize root element with namespace and prefix"() {
+        given:
+        xml = "<t:root xmlns:t='urn:test:test' />"
+        when:
+        visualize()
+        then:
+        text == 'root'
+    }
+
+    private void visualize() {
+        Visualizer v = new Visualizer(xml)
+        text = v.visualize()
     }
 }
 
