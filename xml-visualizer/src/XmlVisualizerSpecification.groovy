@@ -32,6 +32,15 @@ class XmlVisualizerSpecification extends Specification {
         text == 'root'
     }
 
+    def "Should visualize root element with attributes"() {
+        given:
+        xml = "<root a='x' b=''/>"
+        when:
+        visualize()
+        then:
+        text == 'root @a @b'
+    }
+
     private void visualize() {
         Visualizer v = new Visualizer(xml)
         text = v.visualize()
@@ -46,7 +55,9 @@ class Visualizer {
     }
 
     def visualize() {
-        return localName(node)
+        def arr = [localName(node)];
+        node.attributes().each { arr << "@${it.key}" }
+        arr.join(" ")
     }
 
     private Object localName(Node n) {
