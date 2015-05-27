@@ -41,6 +41,16 @@ class XmlVisualizerSpecification extends Specification {
         text == 'root @a @b'
     }
 
+    def "Should visualize root element with prefixed attribute"() {
+        given:
+        xml = "<root t:a='' xmlns:t='urn:test:test' />"
+        when:
+        visualize()
+        then:
+        text == 'root @a'
+    }
+
+
     private void visualize() {
         Visualizer v = new Visualizer(xml)
         text = v.visualize()
@@ -56,12 +66,15 @@ class Visualizer {
 
     def visualize() {
         def arr = [localName(node)];
-        node.attributes().each { arr << "@${it.key}" }
+        node.attributes().each { arr << "@${localName(it.key as String)}" }
         arr.join(" ")
     }
 
     private Object localName(Node n) {
-        String s = n.name()
+        localName(n.name() as String)
+    }
+
+    private String localName(String s) {
         s.replaceFirst('\\{.*\\}', "")
     }
 }
