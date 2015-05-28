@@ -1,4 +1,6 @@
 //@Grab(group = 'org.spockframework', module = 'spock-core', version = '1.0-groovy-2.4')
+
+import groovy.xml.QName
 import spock.lang.Specification
 
 class XmlVisualizerSpecification extends Specification {
@@ -66,15 +68,19 @@ class Visualizer {
 
     def visualize() {
         def arr = [localName(node)];
-        node.attributes().each { arr << "@${localName(it.key as String)}" }
+        node.attributes().each { arr << "@${localName it.key}" }
         arr.join(" ")
     }
 
     private Object localName(Node n) {
-        localName(n.name() as String)
+        localName n.name()
     }
 
-    private String localName(String s) {
-        s.replaceFirst('\\{.*\\}', "")
+    private String localName(QName qname) {
+        qname.localPart
+    }
+
+    private String localName(String name) {
+        name
     }
 }
