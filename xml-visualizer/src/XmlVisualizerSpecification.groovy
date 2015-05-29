@@ -52,7 +52,14 @@ class XmlVisualizerSpecification extends Specification {
         text == 'root @a'
     }
 
-
+    def "Should visualize two elements"() {
+        given:
+        xml = "<root><one /></root>"
+        when:
+        visualize()
+        then:
+        text == 'root\none'
+    }
     private void visualize() {
         Visualizer v = new Visualizer(xml)
         text = v.visualize()
@@ -61,15 +68,23 @@ class XmlVisualizerSpecification extends Specification {
 
 class Visualizer {
     private Node node
+    private def items;
 
     Visualizer(String text) {
         node = new XmlParser().parseText(text)
     }
 
     def visualize() {
-        def arr = [localName(node)];
-        node.attributes().each { arr << "@${localName it.key}" }
-        arr.join(" ")
+        items = []
+        collect(node)
+        items.join('\n')
+    }
+
+    private void collect(Node n) {
+        def arr = [localName(n)];
+        n.attributes().each { arr << "@${localName it.key}" }
+        items << arr.join(" ")
+        n.children().each { collect(it) }
     }
 
     private Object localName(Node n) {
