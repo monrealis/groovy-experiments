@@ -6,6 +6,7 @@ import spock.lang.Specification
 class XmlVisualizerSpecification extends Specification {
     private String xml
     private String text
+    private int indentation
 
     def "Should visualize root element"() {
         given:
@@ -60,15 +61,28 @@ class XmlVisualizerSpecification extends Specification {
         then:
         text == 'root\none'
     }
+
+    def "Should use indentation"() {
+        given:
+        xml = "<root><one><two /></one></root>"
+        indentation = 2
+        when:
+        visualize()
+        then:
+        text == 'root\n  one\n    two'
+    }
+
     private void visualize() {
         Visualizer v = new Visualizer(xml)
+        v.indentation = indentation
         text = v.visualize()
     }
 }
 
 class Visualizer {
     private Node node
-    private def items;
+    private def items
+    def indentation
 
     Visualizer(String text) {
         node = new XmlParser().parseText(text)
@@ -80,11 +94,15 @@ class Visualizer {
         items.join('\n')
     }
 
-    private void collect(Node n) {
+    private void collect(Node n, int level = 0) {
         def arr = [localName(n)];
         n.attributes().each { arr << "@${localName it.key}" }
-        items << arr.join(" ")
-        n.children().each { collect(it) }
+        items << formatLine(level, arr)
+        n.children().each { collect(it, level + 1) }
+    }
+
+    private String formatLine(int level, items) {
+        ' '.multiply(indentation * level) + items.join(" ")
     }
 
     private Object localName(Node n) {
