@@ -72,6 +72,16 @@ class XmlVisualizerSpecification extends Specification {
         text == 'root\n  one\n    two'
     }
 
+    def "Should visualize complex XML"() {
+        given:
+        xml = "<t:root t:a='' xmlns:t='urn:test:test' ><one b=''><t:two t:c=''/></one><three></three></t:root>"
+        indentation = 1
+        when:
+        visualize()
+        then:
+        text == 'root @a\n one @b\n  two @c\n three'
+    }
+
     private void visualize() {
         Visualizer v = new Visualizer(xml)
         v.indentation = indentation
